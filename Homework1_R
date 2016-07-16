@@ -1,0 +1,40 @@
+#Homework 1 
+
+#1.Write a loop that calculates factorials up to 12
+#Wasn't sure how to get it to calculate from scratch, so used the built-in factorial option
+
+for (i in 1:12)
+{
+  print (factorial(i))
+}
+
+#2.Create a numeric vector that contains the sequence from 20 to 50 by 5
+# Source: http://www.endmemo.com/program/R/seq.php 
+
+Vector<- seq(from=20, to=50, by=5)
+
+#3. Fitting numbers into the Quadratic Formula
+
+#Quadratic Equation= ax^2+bx+c=0
+#Use the Quadractic Formula to determine the roots 
+#first separate out the discriminant to see if it is positive, equal to zero, or negative
+
+roots <- function(a,b,c){
+  if(discriminant(a,b,c) > 0){
+    first_root = (-b+sqrt(discriminant(a,b,c)))/(2*a)
+     second_root = (-b-sqrt(discriminant(a,b,c)))/(2*a)
+    roots = c(first_root,second_root)
+  }
+  else if(discriminant(a,b,c) == 0){ #D=0
+    roots = -b/(2*a)
+  }
+  else {"The roots are imaginary"} # D<0
+}
+
+# Discriminant Formula
+discriminant<-function(a,b,c){
+  b^2-4*a*c
+}
+#Test Case leads to the roots are imaginary 
+a<-roots(4,-2,1);a
+
