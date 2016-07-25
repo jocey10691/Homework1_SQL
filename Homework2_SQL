@@ -1,0 +1,51 @@
+#Homework #2 
+
+#1. Create one table to keep track of the videos. 
+#This table should include a unique ID, the title of the video, the length in minutes, and the URL. 
+#Populate the table with at least three related videos from YouTube or other publicly available resources.
+
+DROP TABLE IF EXISTS Videos;
+create table Videos
+( Video_Num int Primary key,
+	Video_Title varchar(100), 
+    Video_Length time, 
+    Video_URL varchar(200)
+    ); 
+
+
+INSERT INTO Videos( Video_Num, Video_Title, Video_Length, Video_URL) VALUES ( 1, 'First Lady Michelle Obama Carpool Karaoke', '00:14:41', 'https://www.youtube.com/watch?v=ln3wAdRAim4');
+INSERT INTO Videos( Video_Num, Video_Title, Video_Length, Video_URL) VALUES ( 2, 'Pinga Full Video Song | Bajirao Mastani', '00:03:43', 'https://www.youtube.com/watch?v=tzRFLMn4kpM');
+INSERT INTO Videos( Video_Num, Video_Title, Video_Length, Video_URL) VALUES ( 3, 'Mime Through Bollywood', '00:04:41', 'https://www.youtube.com/watch?v=PZGUHISlejQ');
+INSERT INTO Videos( Video_Num, Video_Title, Video_Length, Video_URL) VALUES ( 4, 'Beautiful Soul/Khabar Nahi - Chai Town', '00:03:59', 'https://www.youtube.com/watch?v=1vtkqZqLV3k');
+INSERT INTO Videos( Video_Num, Video_Title, Video_Length, Video_URL) VALUES ( 5, 'Mann Mera - Chai Town', '00:03:41', 'https://www.youtube.com/watch?v=HqNpMrWwO84');
+
+#2 Create Reviews Table 
+
+DROP TABLE IF EXISTS Reviews;
+create table Reviews
+( Video_Num int,
+	Username varchar(100), 
+    Rating varchar(4),
+    Long_review text
+    ); 
+
+
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 1, 'Joy', 'NULL', 'Didnt watch it long enough to care');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 2, 'Besty', '01', 'Loved it!');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 3, 'Felcia', '03', 'Would watch it again');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 4, 'Timmy', '05', 'Never ever again will I feel the need to watch this');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 5, 'Manny', '01', 'I have had this on repeat for the last 2 hours');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 4, 'Lee Ann', '05', 'I really hated this');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 5, 'Sandy', '01', 'I wish I had found this sooner');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 1, 'Samuel', 'NULL', 'No comment');
+INSERT INTO Reviews( Video_Num, Username, Rating, Long_review) VALUES ( 2, 'Jasmine', '01', 'How cool is this!!!');
+
+
+#View the combination of both tables. Was able to use left join, since it contains the full list of videos
+#and will bring in any related reviews. It's impossible to have a review without a video, so an "outer join" was not necessary. 
+
+select v.*, r.*
+from Videos v 
+left join reviews r on v.Video_Num=r.Video_Num
+order by 1;
+
