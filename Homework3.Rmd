@@ -1,0 +1,81 @@
+---
+title: "Homework3"
+author: "Jocelyn Chacko"
+date: "July 30, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Importing the Data from a Local Text File 
+# File was downloaded from theUrl and then saved as a text file
+# theUrl<-"https://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data"" 
+
+```{r}
+mushroom <-read.csv("/Users/Jocelyn/Desktop/Mushroom", header = FALSE)
+```
+#The next step is to start to label this data so that it can make sense. It requires information about the variables and the observations. This was taken from the information provided about the table called "Attribute Information"
+
+```{r}
+ColumnNames <- c("classes", "cap-shape", "cap-surface", "cap-color", "bruises", "odor", "gill-attachment", "gill-spacing", "gill-size", "gill-color", "stalk-shape", "stalk-root", "stalk-surface-above-ring", "stalk-surface-below-ring", "stalk-color-above-ring", "stalk-color-below-ring", "veil-type", "veil-color", "ring-number", "ring-type", "spore-print-color", "population", "habitat")
+
+colnames(mushroom) <-ColumnNames
+
+head(mushroom)
+```
+#Next step is to replace the rows with meaningful words using the same information provided in "Attribute Information". Since there are a ton of columns, this is a good time to pick the columns we want. I am choosing classes, cap-shape, cap-surface, cap-color, and odor, which are just the first 5 categorical values. 
+```{r}
+mini.mushroom <- subset(mushroom, select = c("classes", "cap-shape", "cap-surface", "cap-color", "odor"))
+
+head(mini.mushroom)
+
+#Column 1: Classes 
+levels(mini.mushroom$'classes')<-c(levels(mini.mushroom$classes), "edible", "poison")
+mini.mushroom$'classes'[mini.mushroom$'classes' == "e"] <- "edible"
+mini.mushroom$'classes'[mini.mushroom$'classes' == "p"] <- "poison"
+
+# Column 2: Cap-Shape 
+levels(mini.mushroom$'cap-shape') <- c(levels(mini.mushroom$'cap-shape'), "bell", "conical", "convex", "flat", "knobbed", "sunken")
+mini.mushroom$'cap-shape'[mini.mushroom$'cap-shape' == "b"] <- "bell"
+mini.mushroom$'cap-shape'[mini.mushroom$'cap-shape' == "c"] <- "conical"
+mini.mushroom$'cap-shape'[mini.mushroom$'cap-shape' == "x"] <- "convex"
+mini.mushroom$'cap-shape'[mini.mushroom$'cap-shape' == "f"] <- "flat"
+mini.mushroom$'cap-shape'[mini.mushroom$'cap-shape' == "k"] <- "knobbed"
+mini.mushroom$'cap-shape'[mini.mushroom$'cap-shape' == "s"] <- "sunken"
+
+# Column 3: Cap-Surface
+levels(mini.mushroom$'cap-surface') <- c(levels(mini.mushroom$'cap-surface'), "fibrous", "grooves", "scaly", "smooth")
+mini.mushroom$'cap-surface'[mini.mushroom$'cap-surface' == "f"] <- "fibrous"
+mini.mushroom$'cap-surface'[mini.mushroom$'cap-surface' == "g"] <- "grooves"
+mini.mushroom$'cap-surface'[mini.mushroom$'cap-surface' == "y"] <- "scaly"
+mini.mushroom$'cap-surface'[mini.mushroom$'cap-surface' == "s"] <- "smooth"
+
+#Column 4: Cap-Color
+levels(mini.mushroom$`cap-color`)<-c(levels(mini.mushroom$`cap-color`),"brown","buff","cinnamon","gray","green","pink","purple","red","white","yellow")
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "n"] <- "brown"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "b"] <- "buff"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "c"] <- "cinnamon"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "g"] <- "gray"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "r"] <- "green"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "p"] <- "pink"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "u"] <- "purple"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "e"] <- "red"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "w"] <- "white"
+mini.mushroom$'cap-color'[mini.mushroom$'cap-color' == "y"] <- "yellow"
+
+# Column 5: Odor
+levels(mini.mushroom$'odor') <- c(levels(mini.mushroom$'odor'), "almond", "anise", "creosote", "fishy", "foul", "musty", "none", "pungent", "spicy")
+mini.mushroom$'odor'[mini.mushroom$'odor' == "a"] <- "almond"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "l"] <- "anise"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "c"] <- "creosote"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "y"] <- "fishy"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "f"] <- "foul"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "m"] <- "musty"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "n"] <- "none"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "p"] <- "pungent"
+mini.mushroom$'odor'[mini.mushroom$'odor' == "s"] <- "spicy"
+
+head(mini.mushroom)
+```
+#I think that's it! I definitely struggled with the syntax at first, but once it worked once, it was easy to transform all the variables. (Though a bit tedious)
